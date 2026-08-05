@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catálogo · starter</title>
+<style>
+/* ═══════════════════════════════════════════════════════════
+   Tu galería arranca SIN estilo. Vas a agregar CSS por capas,
+   una por ronda. Pedile a la IA solo la capa de cada ronda y
+   pegala acá abajo. Al final: Lighthouse, meta A11y ≥ 90.
+
+   Ronda 1 · la caja  → box-sizing, padding, borde, aire
+   Ronda 2 · Flexbox  → el nav en una fila (1D)
+   Ronda 3 · Grid     → la galería en cuadrícula responsiva (2D)
+   Ronda 4 · el ojo   → jerarquía tipográfica, color, contraste
+   ═══════════════════════════════════════════════════════════ */
+
+/* --- Ronda 1: la caja y el aire --- */
+* { /*aplica estos estilos a todos los ELEMENTOS de la pagina*/
+  box-sizing: border-box;
+}
+body { /*aplica estos estilos a todo el contenido del <body>*/
+  font-family: system-ui, sans-serif;
+  margin: 0;
+  background: #f4f5f7;
+  color: #1f2430;
+  padding: 22px;
+}
+ul { /*modifica las listas aka las vinetas*/
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+a { /*modifica los enlaces (quita el subrrayado y hace que se herede el color)*/
+  text-decoration: none;
+  color: inherit;
+}
+.card { /*clase -- modifica cada card de producto*/
+  background: #ffffff;
+  border: 1px solid #e3e6ea;
+  border-radius: 14px;
+  padding: 18px;
+  margin-bottom: 14px;
+}
+.thumb { /*clase -- el rectangulo donde va la imagen del producto*/
+  height: 88px;
+  border-radius: 10px;
+  background: #e9ecf1;
+  margin-bottom: 12px;
+}
+.site-foot { /*clase -- modifica el pie de pagina*/
+  color: #8a94a3;
+  font-size: 13px;
+  margin-top: 20px;
+}
+/* --- Ronda 2: Flexbox (nav) --- (flexbox es para una direccion aka filas O columnas)*/
+.nav { /*modifica la barra de navegacion*/
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #2f1f6e;
+  padding: 1rem 1.5rem;
+  border-radius: 0 0 12px 12px;
+}
+
+.nav-links { /*organiza los nombres de los links del menu*/
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a { /*maneja los enlaces del menu*/
+  color: #e4e0ff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.nav-links a:hover { /*modifica lo que ve el usuario cuando el mouse esta sobre el link */
+  color: #ff8a5c;
+}
+
+/* --- Ronda 3: Grid (galería) --- (grid es para filas Y columnas)*/
+.galeria { /*organiza todas las tarjetas de producto*/
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* --- Ronda 4: el ojo (color + tipografía) --- */
+body {
+  background: linear-gradient(180deg, #eef1ff 0%, #f4f5f7 300px);
+}
+
+h1 { /*modifica todos los datos tipo <h1>*/
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #2b1a5e;
+  margin-bottom: 0.25rem;
+}
+
+.intro { /*modifica el parrafo debajo del titulo*/
+  color: #5a5f6a;
+  font-size: 1.05rem;
+  margin-top: 0;
+  margin-bottom: 2rem;
+}
+
+.logo { /*modifica el logo de la pagina*/
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.card { 
+  border-top: 4px solid #7c5cff;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.card:nth-child(2n) { /*cambia el borde a las cards que son multiplo de 2*/
+  border-top-color: #ff8a5c;
+}
+
+.card:nth-child(3n) { /*cambia el color a las cards que son multiplo de 3 (6 es verde pq va despues)*/
+  border-top-color: #21c48a;
+}
+
+.card:hover { 
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(43, 26, 94, 0.15);
+  border-top-color: #2f1f6e;
+}
+
+.card h2 {
+  font-size: 1.1rem;
+  color: #2b1a5e;
+  margin-top: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.card p { /*modifica las descripciones de los productos*/
+  color: #5a5f6a;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.tag { /*representa la etiqueta donde esta el precio*/
+  display: inline-block;
+  margin-top: 0.75rem;
+  padding: 0.25rem 0.65rem;
+  background: #ff8a5c;
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-radius: 6px;
+}
+
+/* --- MODO OSCURO --- */
+body.modo-oscuro { /*se activa cuando JS agrega la clase modo-oscuro al <body>*/
+    background: linear-gradient(180deg, #1b1b2f 0%, #111827 300px);
+    color: #f5f5f5;
+}
+
+body.modo-oscuro .nav { /**/
+    background: #0f172a;
+}
+
+body.modo-oscuro .logo,
+body.modo-oscuro .nav-links a {
+    color: #ffffff;
+}
+
+body.modo-oscuro .nav-links a:hover {
+    color: #ffd166;
+}
+
+body.modo-oscuro h1,
+body.modo-oscuro .card h2 {
+    color: #ffffff;
+}
+
+body.modo-oscuro .intro,
+body.modo-oscuro .card p,
+body.modo-oscuro .site-foot {
+    color: #cbd5e1;
+}
+
+body.modo-oscuro .card {
+    background: #1e293b;
+    border: 1px solid #334155;
+}
+
+body.modo-oscuro .thumb {
+    background: #475569;
+}
+
+body.modo-oscuro .tag {
+    background: #f97316;
+}
+
+body.modo-oscuro #tema { /*modifica la apariencia del boton de dark mode*/
+    background: #334155;
+    color: white;
+    border: 1px solid #64748b;
+}
+
+/* --- BOTON DE LIKE --- */
+.like-btn,
+#tema { /*estilo que se comprate entre los botnes de like y tema*/
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+
+    background: #eceff3;
+    color: #555;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    transition:
+        background .3s,
+        color .3s,
+        transform .25s;
+}
+
+.like-btn { /*estilo unico para el boton de like*/
+    margin-top: 14px;
+    width: 100%;
+}
+
+/*# hace referencia en un id que es un elemento unico de la pagina*/
+#tema { /*estilo unico para el boton de tema*/
+    margin-left: 1rem;
+}
+
+.like-btn:hover{ /*modifica el hover del boton*/
+    background:#dfe5ec;
+}
+
+.like-btn.liked{ /*modifica cuando ya hubo likes*/
+    background:#ff4d6d;
+    color:white;
+
+    animation:pulse .35s;
+}
+
+/* --- ANIMACIONES --- */
+
+@keyframes pulse{ /*da el efecto de que el boton late cuando se da un like*/
+
+    0%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.18);
+    }
+
+    100%{
+        transform:scale(1);
+    }
+
+}
+
+/* ----------------------------- EXCHANGE RATE ----------------------- */
+
+.precios{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-top:12px;
+}
+
+.precio-usd{
+    color:#888;
+    font-size:.9rem;
+}
+
+</style>
+</head>
+
+<!-- ------------------- BODY ----------------------------------->
+<body>
+  <header class="site-head">
+    <nav class="nav">
+      <span class="logo">&#9672; Catálogo</span>
+      <ul class="nav-links">
+        <li><a href="#">Inicio</a></li>
+        <li><a href="#">Productos</a></li>
+        <li><a href="#">Contacto</a></li>
+      </ul>
+      <button id="tema">&#127769; Tema</button>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Nuestros productos</h1>
+    <p class="intro">Seis piezas seleccionadas para la clase de hoy.</p>
+
+    <!-- clase galeria (para mantener estilo) y id galeria (para que JS lo pueda encontrar con querySelector("#galeria")) -->
+    <ul class="galeria" id="galeria"></ul>
+  
+  </main>
+  
+  <footer class="site-foot">&copy; 2026 · Catálogo · Programación Web · URL</footer>
+
+
+
+<!-- ---------------------------- SCRIPT ---------------------------------------- -->
+<script>
+    /*busca los elementos que tienen el id tema y guarda una referencia para poder trabajar con el*/
+    const botonTema = document.getElementById("tema");
+
+    /*addEventListener -> agrega un nuevo evento=click (como un if click)*/
+    /*document.body -> hace referencia al body de la pagina*/
+    /*classList -> permite agregar o quitar clases de CSS*/
+    /*(tiene sentido pq se le pide que pase de body a body dark)*/
+    /*toggle -> si la clase no existe, la agrega / si existe la elimina (como on/off)*/
+    botonTema.addEventListener("click", () => {
+        document.body.classList.toggle("modo-oscuro");
+    });
+
+
+    //  manda a llamar el exchange rate de la api del banco de guatemala
+    async function obtenerTipoCambio() {
+        const respuesta = await fetch("https://banguat.computersolutionsla.com/public/index.php?page=api_rate_today&currency=2");
+        const datos = await respuesta.json();
+
+        return datos.tipoCambio;
+    }
+    
+    /* función asíncrona: nos deja usar "await" para esperar la respuesta del fetch */
+    async function cargarProductos() {
+
+        /* referencia al div vacío donde vamos a pintar las tarjetas */
+        const galeria = document.querySelector("#galeria");
+
+        /* fetch hace la petición y "await" espera a que llegue la respuesta */
+        const respuesta = await fetch("https://fakestoreapi.com/products");
+
+        /* la respuesta viene en formato raw, hay que convertirla a JSON (también es async) */
+        const productos = await respuesta.json();
+
+        /* espera que llegue tipo de cambio*/
+        const tipoCambio = await obtenerTipoCambio();
+        
+        /* recorremos el array de productos, uno por uno */
+        productos.forEach((producto) => {
+
+            const precioQ = (producto.price * tipoCambio).toFixed(2);
+
+            /* creamos un elemento <li> por cada producto (usa .card, ya tenés el estilo) */
+            const card = document.createElement("li");
+            card.classList.add("card");
+
+            /* le metemos el contenido usando los datos que vienen de la API */
+            card.innerHTML = `
+            <div class="thumb"></div>
+            <h2>${producto.title}</h2>
+            <p>${producto.category}</p>
+            
+            <div class="precios">
+                <span class="tag">Q ${precioQ}</span>
+                <span class="precio-usd">US$ ${producto.price}</span>
+            </div>
+
+            <button class="like-btn">
+                🤍 <span>Me gusta</span>
+            </button>
+            `;
+
+            /* lo agregamos dentro de la galería */
+            galeria.appendChild(card);
+            
+
+            const boton = card.querySelector(".like-btn");
+            let liked = false;
+
+            boton.addEventListener("click", () => {
+            liked = !liked;
+
+                if (liked) {
+                    boton.classList.add("liked");
+                    boton.innerHTML = "❤️ <span>Te gusta</span>";
+                } else {
+                    boton.classList.remove("liked");
+                    boton.innerHTML = "🤍 <span>Me gusta</span>";
+                }
+            });
+        });
+    }
+
+    /* llamamos la función para que se ejecute al cargar la página */
+    cargarProductos();
+
+</script>
+
+</body>
+</html>
